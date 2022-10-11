@@ -1,23 +1,35 @@
 import React, { useState } from 'react';
-import { Input, Label, Button } from '../components';
+import { Input, Label, Button, Spinner, Errors } from '../components';
 import GuestLayout from '../layouts/GuestLayout';
 import { Link } from 'react-router-dom';
+import useAuth from '../hooks/auth';
 
 export default function Login() {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
+  const [errors, setErrors] = useState([]);
+
+  const { login, isLoading } = useAuth();
+
+  const onSubmit = (event) => {
+    event.preventDefault();
+    console.log(email);
+    login({ email, password, setErrors });
+  };
 
   return (
     <GuestLayout>
+      {isLoading && <Spinner />}
       <div className="py-20 max-w-md mx-auto">
         <h1 className="text-xl font-bold text-center mb-6">Please Sign In</h1>
-        <form>
+        <Errors className="mb-5" errors={errors} />
+        <form onSubmit={onSubmit}>
           <div className="mb-4">
             <Label value="Email" />
             <Input
               type="email"
               value={email}
-              onChange={() => setEmail(e.target.value)}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="Fill your email .."
             />
           </div>
@@ -26,7 +38,7 @@ export default function Login() {
             <Input
               type="password"
               value={password}
-              onChange={() => setPassword(e.target.value)}
+              onChange={(e) => setPassword(e.target.value)}
               placeholder="Fill your password .."
             />
           </div>

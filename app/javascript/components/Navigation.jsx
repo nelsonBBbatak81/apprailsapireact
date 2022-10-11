@@ -1,8 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import Dropdown from './Dropdown';
+import useAuth from '../hooks/auth';
 
 function Navigation() {
+  const isLoggIn = useSelector((state) => state.user.isLoggIn);
+  const user = useSelector((state) => state.user.user);
+  const { signOut } = useAuth();
+
+  const logout = () => {
+    signOut();
+  };
+
   return (
     <>
       <nav class="bg-slate-900 relative select-none bg-grey lg:flex lg:items-stretch w-full">
@@ -57,21 +67,27 @@ function Navigation() {
             >
               Cart
             </Link>
-            <Link
-              to="/signin"
-              class="flex-no-grow flex-no-shrink relative py-2 px-4 leading-normal text-white no-underline flex items-center hover:bg-slate-300 hover:text-green-500"
-            >
-              Sign In
-            </Link>
-            <Link
-              to="/signup"
-              class="flex-no-grow flex-no-shrink relative py-2 px-4 leading-normal text-white no-underline flex items-center hover:bg-slate-300 hover:text-green-500"
-            >
-              Sign Up
-            </Link>
-            <div className="flex items-center py-2 px-4">
-              <Dropdown />
-            </div>
+            {!isLoggIn && (
+              <>
+                <Link
+                  to="/signin"
+                  class="flex-no-grow flex-no-shrink relative py-2 px-4 leading-normal text-white no-underline flex items-center hover:bg-slate-300 hover:text-green-500"
+                >
+                  Sign In
+                </Link>
+                <Link
+                  to="/signup"
+                  class="flex-no-grow flex-no-shrink relative py-2 px-4 leading-normal text-white no-underline flex items-center hover:bg-slate-300 hover:text-green-500"
+                >
+                  Sign Up
+                </Link>
+              </>
+            )}
+            {isLoggIn && (
+              <div className="flex items-center py-2 px-4">
+                <Dropdown user={user} logout={logout} />
+              </div>
+            )}
           </div>
         </div>
       </nav>

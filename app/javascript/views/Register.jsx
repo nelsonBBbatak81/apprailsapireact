@@ -1,24 +1,35 @@
 import React, { useState } from 'react';
-import { Input, Label, Button } from '../components';
+import { Input, Label, Button, Errors } from '../components';
 import GuestLayout from '../layouts/GuestLayout';
 import { Link } from 'react-router-dom';
+import useAuth from '../hooks/auth';
 
 export default function Register() {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const [password_confirmation, setPasswordConfirmation] = useState(null);
+  const [errors, setErrors] = useState([]);
+
+  const { register, isLoading } = useAuth();
+
+  const onSubmit = (event) => {
+    event.preventDefault();
+    console.log(email);
+    register({ email, password, password_confirmation, setErrors });
+  };
 
   return (
     <GuestLayout>
       <div className="py-20 max-w-md mx-auto">
         <h1 className="text-xl font-bold text-center mb-6">Please Sign Up</h1>
-        <form action="">
+        <Errors className="mb-5" errors={errors} />
+        <form onSubmit={onSubmit}>
           <div className="mb-4">
             <Label value="Email" />
             <Input
               type="email"
               value={email}
-              onChange={() => setEmail(e.target.value)}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="Fill your email .."
             />
           </div>
@@ -27,7 +38,7 @@ export default function Register() {
             <Input
               type="password"
               value={password}
-              onChange={() => setPassword(e.target.value)}
+              onChange={(e) => setPassword(e.target.value)}
               placeholder="Fill your password .."
             />
           </div>
@@ -36,7 +47,7 @@ export default function Register() {
             <Input
               type="password"
               value={password_confirmation}
-              onChange={() => setPasswordConfirmation(e.target.value)}
+              onChange={(e) => setPasswordConfirmation(e.target.value)}
               placeholder="Fill your password again.."
             />
           </div>

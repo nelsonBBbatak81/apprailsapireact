@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function Dropdown() {
+function Dropdown({ user, logout }) {
   const [isOpen, setOpen] = useState(false);
 
   const handleCloseDropdown = () => {
@@ -18,7 +18,7 @@ function Dropdown() {
             onClick={() => handleCloseDropdown()}
             className="relative z-10 flex items-center py-2 px-4 leading-normal text-white focus:border-blue-500 focus:ring-opacity-40 dark:focus:ring-opacity-40 focus:ring-blue-300 dark:focus:ring-blue-400 focus:ring dark:text-white dark:bg-gray-800 focus:outline-none"
           >
-            <span className="mx-1">Jane Doe</span>
+            <span className="mx-1">{user.email}</span>
             <svg
               className="w-5 h-5 mx-1"
               viewBox="0 0 24 24"
@@ -63,7 +63,7 @@ function Dropdown() {
               <hr className="border-gray-200 dark:border-gray-700 " />
 
               <a
-                href="#"
+                onClick={() => logout()}
                 className="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
               >
                 Sign Out
