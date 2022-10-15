@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 function Dropdown({ user, logout }) {
   const [isOpen, setOpen] = useState(false);
@@ -54,12 +55,12 @@ function Dropdown({ user, logout }) {
 
               <hr className="border-gray-200 dark:border-gray-700 " />
 
-              <a
-                href="#"
+              <Link
+                to="/admin/home"
                 className="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
               >
                 Admin
-              </a>
+              </Link>
               <hr className="border-gray-200 dark:border-gray-700 " />
 
               <a

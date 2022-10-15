@@ -11,6 +11,9 @@ import ErrorPage from './views/ErrorPage';
 import About from './views/About';
 import Login from './views/Login';
 import Register from './views/Register';
+import HomeAdmin from './views/admin/HomeAdmin';
+import CategoryAdmin from './views/admin/CategoryAdmin';
+
 import store from './store/store';
 import { Provider } from 'react-redux';
 
@@ -31,6 +34,14 @@ const router = createBrowserRouter([
   {
     path: '/signup',
     element: <Register />,
+  },
+  {
+    path: '/admin/home',
+    element: <HomeAdmin />,
+  },
+  {
+    path: '/admin/category',
+    element: <CategoryAdmin />,
   },
 ]);
 

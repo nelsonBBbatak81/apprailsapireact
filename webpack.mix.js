@@ -1,4 +1,5 @@
 const mix = require('laravel-mix');
+require('laravel-mix-simple-image-processing');
 
 mix
   .js('app/javascript/application.js', 'app/assets/builds')
@@ -11,6 +12,10 @@ mix
   .alias({
     '@': 'app/javascript',
   });
+mix.imgs({
+  source: 'app/javascript/assets/images',
+  destination: 'app/assets/images',
+});
 
 mix.webpackConfig({
   stats: {

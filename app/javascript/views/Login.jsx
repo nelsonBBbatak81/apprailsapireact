@@ -18,8 +18,7 @@ export default function Login() {
   };
 
   return (
-    <GuestLayout>
-      {isLoading && <Spinner />}
+    <GuestLayout isLoading={isLoading}>
       <div className="py-20 max-w-md mx-auto">
         <h1 className="text-xl font-bold text-center mb-6">Please Sign In</h1>
         <Errors className="mb-5" errors={errors} />

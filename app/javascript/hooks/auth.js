@@ -2,8 +2,10 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import { setUser, removeUser, getAuth, removeAuth } from '../store/userReducer';
+import { useNavigate } from 'react-router-dom';
 
 export default function useAuth() {
+  let navigate = useNavigate();
   const [isLoading, setLoading] = useState(false);
   const [token, setToken] = useState(
     document.querySelector("meta[name='csrf-token']").getAttribute('content')
@@ -28,6 +30,7 @@ export default function useAuth() {
         dispatch(setUser(res.data.data));
         dispatch(getAuth(true));
         console.log(res);
+        navigate('/admin/home');
       })
       .catch((err) => {
         setLoading(false);
@@ -56,6 +59,7 @@ export default function useAuth() {
         localStorage.setItem('user', JSON.stringify(res.data.data));
         dispatch(setUser(res.data.data));
         dispatch(getAuth(true));
+        navigate('/admin/home');
       })
       .catch((err) => {
         setLoading(false);
@@ -91,6 +95,7 @@ export default function useAuth() {
         localStorage.removeItem('token');
         dispatch(removeUser());
         dispatch(removeAuth());
+        navigate('/signin');
       })
       .catch((err) => {
         setLoading(false);
